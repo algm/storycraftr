@@ -198,6 +198,8 @@ StoryCraftr calls: `aider --message "your prompt" --yes --no-git`
 
 **Installation:**
 ```bash
+# First install GitHub CLI from https://cli.github.com
+# Then install the Copilot extension:
 gh extension install github/gh-copilot
 ```
 

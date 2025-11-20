@@ -203,7 +203,7 @@ You can easily switch between different providers by editing `storycraftr.json`:
 If you get "CLI not found" error:
 - **Cursor**: Install Cursor IDE from https://cursor.sh
 - **Aider**: Run `pip install aider-chat`
-- **Copilot**: Run `gh extension install github/gh-copilot`
+- **Copilot**: Install GitHub CLI from https://cli.github.com, then run `gh extension install github/gh-copilot`
 
 ### Timeout Issues
 
