@@ -191,6 +191,18 @@ def cli(debug):
     show_default=False,
     help="Optional cache directory for embedding artifacts.",
 )
+@click.option(
+    "--agent-cli",
+    default="",
+    show_default=False,
+    help="AI agent CLI command (e.g., 'cursor', 'aider', 'gh-copilot') for ai-agent provider.",
+)
+@click.option(
+    "--agent-cli-args",
+    default="",
+    show_default=False,
+    help="Additional arguments for the AI agent CLI (comma-separated).",
+)
 def init(
     project_path,
     license,
@@ -210,6 +222,8 @@ def init(
     embed_model,
     embed_device,
     embed_cache_dir,
+    agent_cli,
+    agent_cli_args,
 ):
     """
     Initialize the project structure with configuration and behavior content.
@@ -294,6 +308,8 @@ def init(
             embed_model=embed_model,
             embed_device=embed_device,
             embed_cache_dir=embed_cache_dir,
+            agent_cli=agent_cli,
+            agent_cli_args=agent_cli_args,
         )
     elif cli_name == "papercraftr":
         init_structure_paper(
@@ -312,6 +328,8 @@ def init(
             embed_model=embed_model,
             embed_device=embed_device,
             embed_cache_dir=embed_cache_dir,
+            agent_cli=agent_cli,
+            agent_cli_args=agent_cli_args,
         )
 
 

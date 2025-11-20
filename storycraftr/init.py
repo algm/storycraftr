@@ -67,6 +67,8 @@ def init_structure_story(
     embed_model,
     embed_device,
     embed_cache_dir,
+    agent_cli="",
+    agent_cli_args="",
 ):
     """
     Initializes the StoryCraftr project structure by creating necessary files and folders.
@@ -104,6 +106,8 @@ def init_structure_story(
         "embed_model": embed_model,
         "embed_device": embed_device,
         "embed_cache_dir": embed_cache_dir,
+        "agent_cli": agent_cli,
+        "agent_cli_args": agent_cli_args.split(",") if agent_cli_args else [],
     }
     config_file = Path(book_path) / "storycraftr.json"
     config_file.write_text(json.dumps(config_data, indent=4), encoding="utf-8")
@@ -148,6 +152,8 @@ def init_structure_paper(
     embed_model="BAAI/bge-large-en-v1.5",
     embed_device="auto",
     embed_cache_dir="",
+    agent_cli="",
+    agent_cli_args="",
 ):
     """
     Initializes the PaperCraftr project structure by creating necessary files and folders.
@@ -183,6 +189,8 @@ def init_structure_paper(
         "embed_model": embed_model,
         "embed_device": embed_device,
         "embed_cache_dir": embed_cache_dir,
+        "agent_cli": agent_cli,
+        "agent_cli_args": agent_cli_args.split(",") if agent_cli_args else [],
     }
 
     # Guardar configuración solo en el directorio del proyecto

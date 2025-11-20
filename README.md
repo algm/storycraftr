@@ -69,7 +69,7 @@ Each project stores its configuration in `storycraftr.json` or `papercraftr.json
 }
 ```
 
-- `llm_provider` accepts `openai`, `openrouter`, or `ollama`.
+- `llm_provider` accepts `openai`, `openrouter`, `ollama`, or `ai-agent`.
 - `llm_endpoint` lets you target custom bases (e.g., `https://openrouter.ai/api/v1`).
 - `embed_model` defaults to `BAAI/bge-large-en-v1.5` for OpenAI-quality local embeddings. Use a lighter model (e.g., `sentence-transformers/all-MiniLM-L6-v2`) on constrained hardware.
 
@@ -78,6 +78,37 @@ Each project stores its configuration in `storycraftr.json` or `papercraftr.json
 - **OpenAI** – works with `ChatOpenAI` via `OPENAI_API_KEY`; set `llm_provider=openai`.
 - **OpenRouter** – set `OPENROUTER_API_KEY` and optionally `OPENROUTER_BASE_URL`; use `llm_provider=openrouter`.
 - **Ollama** – self-hosted models via `ollama serve`; set `llm_provider=ollama` and optionally `OLLAMA_BASE_URL`.
+- **AI Agent** – integrate with Cursor, Copilot, or Aider; set `llm_provider=ai-agent` and optionally `agent_cli` (see [AI Agent Mode docs](docs/ai-agent-mode.md)).
+
+## Using with AI Coding Assistants (Cursor/Copilot/Aider)
+
+StoryCraftr now supports **AI Agent Mode** that integrates with AI coding assistants like Cursor, GitHub Copilot, or Aider. Instead of connecting directly to LLM APIs, StoryCraftr can automatically call these tools' CLIs to get responses.
+
+### Quick Setup
+
+```bash
+# Initialize with Cursor
+storycraftr init "My Novel" \
+  --llm-provider "ai-agent" \
+  --agent-cli "cursor"
+
+# Initialize with Aider
+storycraftr init "My Novel" \
+  --llm-provider "ai-agent" \
+  --agent-cli "aider"
+
+# Use environment variable
+export AI_AGENT_CLI="cursor"
+storycraftr init "My Novel" --llm-provider "ai-agent"
+```
+
+**Benefits:**
+- Use your existing AI assistant subscription
+- No need for separate API keys
+- Automatic CLI integration or interactive mode
+- Full control over the generation process
+
+For complete documentation, see [AI Agent Mode Guide](docs/ai-agent-mode.md).
 
 ## Quick Examples
 

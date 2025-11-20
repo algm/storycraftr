@@ -1,0 +1,170 @@
+# StoryCraftr - AI-Powered Book Creation Assistant
+
+You are helping with StoryCraftr, an open-source AI-powered book and research paper writing assistant.
+
+## Project Overview
+
+StoryCraftr is a CLI tool that helps writers create novels and academic papers using AI. It features:
+- Worldbuilding assistance
+- Story outlining and structure
+- Chapter generation
+- Character development
+- Research paper structuring
+- Interactive chat mode
+- VS Code extension support
+
+## Architecture
+
+### Core Components
+- **Python CLI** (`storycraftr/`): Main application logic, agents, prompts
+- **VS Code Extension** (`src/`): TypeScript extension for IDE integration
+- **LangChain Integration**: Supports OpenAI, OpenRouter, Ollama, and AI Agent mode
+- **Sub-agents**: Parallel task execution system
+
+### Key Directories
+- `storycraftr/agent/`: Agent implementations for story and paper generation
+- `storycraftr/llm/`: LLM provider factory and credential management
+- `storycraftr/chat/`: Interactive chat session management
+- `storycraftr/cmd/`: CLI command implementations
+- `docs/`: User documentation
+- `tests/`: Unit and integration tests
+
+## Coding Standards
+
+### Python
+- Format with Black (88-character lines)
+- Use snake_case for functions and variables
+- Type hints required for public APIs
+- Docstrings for all public functions
+- Security: Run `detect-secrets` before commits
+
+### TypeScript
+- Follow tsconfig settings
+- Use camelCase for functions, PascalCase for classes
+- Namespace commands under `storycraftr.*`
+
+### Git Commits
+Use Conventional Commits:
+- `feat(component):` for new features
+- `fix(component):` for bug fixes
+- `docs:` for documentation
+- `sec:` for security updates
+
+## Building & Testing
+
+### Python
+```bash
+poetry install              # Install dependencies
+poetry run storycraftr --help  # Verify CLI
+poetry run pytest          # Run tests
+poetry run pre-commit run --all-files  # Lint
+```
+
+### VS Code Extension
+```bash
+npm install                # Install dependencies
+npm run compile            # Build extension
+npm run watch              # Watch mode
+```
+
+## AI Agent Mode
+
+StoryCraftr now supports an **AI Agent Mode** (`llm_provider: "ai-agent"`) that integrates with AI coding assistant CLIs. In this mode:
+
+1. **Automatic CLI Integration**: StoryCraftr can call cursor, aider, or gh-copilot CLIs directly
+2. **Interactive Fallback**: If CLI is unavailable, displays prompts for manual forwarding
+3. **Configuration**: Set via `agent_cli` in storycraftr.json or `AI_AGENT_CLI` environment variable
+
+**Supported CLIs:**
+- `cursor`: Cursor AI IDE CLI (`cursor chat "prompt"`)
+- `aider`: Aider pair programming tool (`aider --message "prompt" --yes --no-git`)
+- `gh-copilot`: GitHub Copilot CLI (`gh copilot suggest -t shell "prompt"`)
+
+**Example configuration:**
+```json
+{
+  "llm_provider": "ai-agent",
+  "agent_cli": "cursor",
+  "agent_cli_args": []
+}
+```
+
+This enables users to leverage their existing AI assistant subscriptions without needing separate LLM API keys.
+
+## Important Files
+
+- `storycraftr/llm/factory.py`: LLM provider factory (supports ai-agent mode)
+- `storycraftr/cli.py`: CLI entrypoint
+- `storycraftr.json`: Project configuration file
+- `behavior.txt`: Agent behavior contract
+- `docs/ai-agent-mode.md`: AI Agent mode documentation
+
+## Security
+
+- Never commit API keys or `.env` files
+- Credentials loaded from `~/.storycraftr/` or environment variables
+- Run `poetry run detect-secrets scan` before committing
+- Review `SECURITY.md` for guidelines
+
+## Common Tasks
+
+### Adding a New LLM Provider
+Edit `storycraftr/llm/factory.py`:
+1. Add to `_PROVIDER_DEFAULT_ENV`
+2. Implement provider logic in `build_chat_model()`
+3. Update documentation
+
+### Adding a New Command
+1. Create command in `storycraftr/cmd/`
+2. Register in `storycraftr/cli.py`
+3. Add tests in `tests/`
+4. Update documentation
+
+### Working with Agents
+- Story agents: `storycraftr/agent/story/`
+- Paper agents: `storycraftr/agent/paper/`
+- Base agent: `storycraftr/agent/agents.py`
+
+## When Assisting Users
+
+### For StoryCraftr Usage Questions
+- Refer to `docs/getting_started.md` for setup
+- Refer to `docs/ai-agent-mode.md` for AI agent integration
+- Refer to `docs/chat.md` for chat mode
+- Check `README.md` for quick examples
+
+### For Development Questions
+- Check `AGENTS.md` for repository guidelines
+- Review `CONTRIBUTING.md` for contribution workflow
+- See test examples in `tests/` directory
+
+### For AI Agent Mode
+When users want to use StoryCraftr with Cursor or Copilot:
+1. Set `llm_provider: "ai-agent"` in `storycraftr.json`
+2. Run StoryCraftr commands normally
+3. Copy prompts to AI agent (Cursor/Copilot)
+4. Paste responses back to StoryCraftr
+
+## Example Prompts for AI Agents
+
+When StoryCraftr sends you a prompt in AI Agent Mode, you'll see:
+- **System message**: Defines your role (e.g., "creative writing assistant")
+- **User message**: The actual request (e.g., "Create an outline for...")
+
+Forward both to your AI assistant for best results.
+
+## Project Philosophy
+
+StoryCraftr aims to:
+- Keep writers in control of their creative process
+- Provide structure without limiting creativity
+- Support multiple LLM providers for flexibility
+- Maintain privacy and data ownership
+- Enable offline/local AI usage when possible
+
+## Links
+
+- GitHub: https://github.com/raestrada/storycraftr
+- Website: https://storycraftr.app
+- AI Craftr Suite: https://aicraftr.app
+- VS Code Extension: https://marketplace.visualstudio.com/items?itemName=StoryCraftr.storycraftr
