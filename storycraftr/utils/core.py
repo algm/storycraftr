@@ -177,6 +177,10 @@ def llm_settings_from_config(config: BookConfig) -> LLMSettings:
     """
     Map the persisted configuration to normalized LLM settings.
     """
+    
+    agent_cli_args = getattr(config, "agent_cli_args", [])
+    if isinstance(agent_cli_args, str):
+        agent_cli_args = [agent_cli_args] if agent_cli_args else []
 
     return LLMSettings(
         provider=getattr(config, "llm_provider", "openai"),
@@ -185,6 +189,8 @@ def llm_settings_from_config(config: BookConfig) -> LLMSettings:
         api_key_env=getattr(config, "llm_api_key_env", ""),
         temperature=getattr(config, "temperature", 0.7),
         request_timeout=getattr(config, "request_timeout", 120),
+        agent_cli_command=getattr(config, "agent_cli", ""),
+        agent_cli_args=agent_cli_args,
     )
 
 
