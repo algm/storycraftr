@@ -88,21 +88,32 @@ def my_command(arg, option):
 
 ## AI Agent Mode
 
-The `ai-agent` provider enables StoryCraftr to work with AI coding assistants:
+The `ai-agent` provider enables StoryCraftr to work with AI coding assistants through automatic CLI integration or interactive prompts:
 
+**Automatic Mode:**
 ```python
 # In factory.py
 if provider == "ai-agent":
-    return _AIAgentChatModel()
+    return _AIAgentChatModel(
+        cli_command=settings.agent_cli_command,
+        cli_args=settings.agent_cli_args
+    )
 
 class _AIAgentChatModel(BaseChatModel):
     def _generate(self, messages, ...):
-        # Display prompt to user
-        # Get response from AI assistant
-        # Return as ChatResult
+        # Format prompt from messages
+        # Call CLI: cursor chat "prompt" or aider --message "prompt"
+        # Return response as ChatResult
+        # Fallback to interactive if CLI fails
 ```
 
-Users copy StoryCraftr prompts to Cursor/Copilot and paste responses back.
+**Supported CLIs:**
+- Cursor: `cursor chat "prompt"`
+- Aider: `aider --message "prompt" --yes --no-git`  
+- GitHub Copilot: `gh copilot suggest -t shell "prompt"`
+
+**Interactive Fallback:**
+If CLI is unavailable, users copy StoryCraftr prompts to their AI assistant and paste responses back.
 
 ## Testing Expectations
 

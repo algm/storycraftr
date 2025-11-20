@@ -69,12 +69,25 @@ npm run watch              # Watch mode
 
 ## AI Agent Mode
 
-StoryCraftr now supports an **AI Agent Mode** (`llm_provider: "ai-agent"`) that allows it to work with AI coding assistants like Cursor or Copilot. In this mode:
+StoryCraftr now supports an **AI Agent Mode** (`llm_provider: "ai-agent"`) that integrates with AI coding assistant CLIs. In this mode:
 
-1. StoryCraftr displays prompts to the user
-2. User forwards prompts to their AI agent (Cursor/Copilot)
-3. User pastes AI agent's response back
-4. StoryCraftr processes the response
+1. **Automatic CLI Integration**: StoryCraftr can call cursor, aider, or gh-copilot CLIs directly
+2. **Interactive Fallback**: If CLI is unavailable, displays prompts for manual forwarding
+3. **Configuration**: Set via `agent_cli` in storycraftr.json or `AI_AGENT_CLI` environment variable
+
+**Supported CLIs:**
+- `cursor`: Cursor AI IDE CLI (`cursor chat "prompt"`)
+- `aider`: Aider pair programming tool (`aider --message "prompt" --yes --no-git`)
+- `gh-copilot`: GitHub Copilot CLI (`gh copilot suggest -t shell "prompt"`)
+
+**Example configuration:**
+```json
+{
+  "llm_provider": "ai-agent",
+  "agent_cli": "cursor",
+  "agent_cli_args": []
+}
+```
 
 This enables users to leverage their existing AI assistant subscriptions without needing separate LLM API keys.
 
